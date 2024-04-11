@@ -9,3 +9,5 @@ draft: false
 ---
 
 Wow! A test page!
+
+[[index]]
