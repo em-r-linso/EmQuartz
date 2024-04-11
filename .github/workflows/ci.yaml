@@ -43,6 +43,14 @@ jobs:
       - name: Test
         run: npm test
 
+      - name: Replace tabs with spaces
+        run: |
+          if [ "${{ matrix.os }}" = "windows-latest" ]; then
+            Powershell -Command "Get-ChildItem -Recurse -Filter *.md | ForEach { (Get-Content $_ -Raw) -replace '\t', '    ' | Set-Content $_ }"
+          else
+            find . -type f -name '*.md' -exec sed -i 's/\t/    /g' {} +
+          fi
+
       - name: Ensure Quartz builds, check bundle info
         run: npx quartz build --bundleInfo
 
